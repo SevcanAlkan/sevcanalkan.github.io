@@ -88,6 +88,88 @@
                 font-weight: 600;
             }
 
+            #photography {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            #photography p {
+                font-size: 1.05rem;
+            }
+
+            .photo-featured {
+                background: var(--panel);
+                border-radius: 0.5rem;
+                overflow: hidden;
+            }
+
+            .photo-featured img {
+                width: 100%;
+                display: block;
+                object-fit: contain;
+                aspect-ratio: 16 / 9;
+                background: var(--bg);
+            }
+
+            .photo-caption {
+                padding: 0.7rem 0.8rem;
+                border-top: 0.1rem solid var(--border);
+                font-size: 0.95rem;
+            }
+
+            .photo-thumbs {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+                gap: 0.6rem;
+            }
+
+            .photo-thumb {
+                display: block;
+                border: none;
+                padding: 0;
+                appearance: none;
+                -webkit-appearance: none;
+                border-radius: 0.45rem;
+                overflow: hidden;
+                background: var(--panel);
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+            .photo-thumb:hover {
+                transform: translateY(-0.05rem);
+            }
+
+            .photo-thumb:focus-visible {
+                outline: 0.15rem dashed var(--accent);
+                outline-offset: 0.15rem;
+            }
+
+            .photo-thumb img {
+                width: 100%;
+                height: 5.5rem;
+                object-fit: contain;
+                display: block;
+                background: var(--bg);
+            }
+
+            .photo-meta {
+                background: var(--panel);
+                border: 0.15rem solid var(--border);
+                padding: 0.7rem 0.8rem;
+                border-radius: 0.5rem;
+                font-size: 0.95rem;
+            }
+
+            .photo-cta {
+                display: inline-flex;
+                align-items: center;
+                width: fit-content;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
             footer {
                 text-align: center;
                 padding: 40px 0;
@@ -144,41 +226,29 @@ open resume-landing-page
             </div>
         </section>
 
-        <section id="photography"
-            style="
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;">
-            <h2 style="
-                color: var(--accent);
-                font-size: 2rem;
-                margin: 0;
-                text-align: left;">
-                Photography 🎯
-            </h2>
+        <section id="photography">
+            <h2>Photography 🎯</h2>
 
-            <p style="
-                font-size: 1.2rem;">
-                Software Developer by day.<br>
-                <strong>Aviation / planespotting photographer</strong> by passion.
+            <p>
+                Software developer by day and aviation photographer by passion. Here are a few favorite moments from spotting sessions around Sofia.
             </p>
 
-            <div style="
-                background: var(--panel);
-                border: 0.15rem solid var(--border);
-                padding: 0.6rem;
-                border-radius: 0.5rem;
-                font-size: 1rem;
-                overflow-x: auto;">
-                <pre style="white-space: pre-wrap; margin: 0;">
-    📍 Location: Sofia Airport (LBSF)
-    📷 Gear: Fujifilm X-T5 + XF 150-600mm
-    🎯 Favorite subject: Cargo heavies, military transports, special liveries
-    🛫 Hobby: High-altitude spotting + runway approach photography
-    🌐 Flickr: https://www.flickr.com/photos/your-profile
-                </pre>
+            <div class="photo-featured">
+                <img
+                    id="photoFeaturedImage"
+                    src="https://placehold.co/1280x720/3C3F41/A9B7C6?text=Loading+Flickr+photos"
+                    alt="Loading featured Flickr photo"
+                    loading="eager"
+                />
+                <p class="photo-caption" id="photoCaption">Loading latest shots from Flickr...</p>
             </div>
 
+            <div class="photo-thumbs" id="photoThumbs" aria-label="Photo thumbnails">
+            </div>
+
+            <a class="photo-cta" href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">
+                View full aviation gallery on Flickr
+            </a>
         </section>
 
         <section id="contact">
@@ -250,5 +320,135 @@ open resume-landing-page
       topBtn.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
       });
+    </script>
+    <script>
+      (function () {
+        const featuredImage = document.getElementById("photoFeaturedImage");
+        const caption = document.getElementById("photoCaption");
+        const meta = document.getElementById("photoMeta");
+        const thumbsWrap = document.getElementById("photoThumbs");
+        const fallbackFeatured = "https://placehold.co/1280x720/3C3F41/A9B7C6?text=Photo+temporarily+unavailable";
+        const fallbackThumb = "https://placehold.co/640x360/3C3F41/A9B7C6?text=Unavailable";
+
+        if (!featuredImage || !thumbsWrap) {
+          return;
+        }
+
+        featuredImage.addEventListener("error", () => {
+          featuredImage.src = fallbackFeatured;
+          featuredImage.alt = "Featured photo temporarily unavailable";
+          if (caption) {
+            caption.textContent = "The remote image host rate-limited this photo (HTTP 429).";
+            caption.hidden = false;
+          }
+        });
+
+        function selectThumb(thumb) {
+          const thumbs = thumbsWrap.querySelectorAll(".photo-thumb");
+          thumbs.forEach((item) => item.setAttribute("aria-current", "false"));
+          thumb.setAttribute("aria-current", "true");
+
+          const full = thumb.getAttribute("data-full");
+          const alt = thumb.getAttribute("data-alt");
+          const text = thumb.getAttribute("data-caption");
+          const details = thumb.getAttribute("data-meta");
+
+          if (full) featuredImage.src = full;
+          if (alt) featuredImage.alt = alt;
+          if (caption) {
+            caption.textContent = text || "";
+            caption.hidden = !text;
+          }
+          if (meta) meta.textContent = details || "";
+        }
+
+        function attachThumbEvents(thumb) {
+          thumb.addEventListener("click", () => selectThumb(thumb));
+          thumb.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              selectThumb(thumb);
+            }
+          });
+          const thumbImg = thumb.querySelector("img");
+          if (thumbImg) {
+            thumbImg.addEventListener("error", () => {
+              thumbImg.src = fallbackThumb;
+              thumbImg.alt = "Thumbnail temporarily unavailable";
+            });
+          }
+        }
+
+        function makeThumb(item, active) {
+          const thumb = document.createElement("button");
+          thumb.className = "photo-thumb";
+          thumb.type = "button";
+          thumb.setAttribute("aria-current", active ? "true" : "false");
+
+          const full = item.media.m.replace("_m.", "_b.");
+          const preview = item.media.m;
+          const text = (item.title || "").trim();
+          const altText = text || "Aviation photo from Flickr";
+
+          thumb.setAttribute("data-full", full);
+          thumb.setAttribute("data-alt", altText);
+          thumb.setAttribute("data-caption", text);
+          thumb.setAttribute("data-meta", "Source: Flickr photostream");
+
+          const img = document.createElement("img");
+          img.loading = "lazy";
+          img.decoding = "async";
+          img.src = preview;
+          img.alt = text ? "Thumbnail: " + text : "Aviation photo thumbnail";
+          thumb.appendChild(img);
+
+          return thumb;
+        }
+
+        function loadFromFeed(items) {
+          if (!Array.isArray(items) || items.length === 0) {
+            if (caption) {
+              caption.textContent = "No public photos found on Flickr feed.";
+              caption.hidden = false;
+            }
+            return;
+          }
+
+          const selected = items.slice(0, 6);
+          thumbsWrap.innerHTML = "";
+          selected.forEach((item, index) => {
+            const thumb = makeThumb(item, index === 0);
+            thumbsWrap.appendChild(thumb);
+            attachThumbEvents(thumb);
+          });
+
+          const first = thumbsWrap.querySelector(".photo-thumb");
+          if (first) {
+            selectThumb(first);
+          }
+        }
+
+        window.jsonFlickrFeed = function (feed) {
+          if (!feed || !Array.isArray(feed.items)) {
+            if (caption) {
+              caption.textContent = "Could not load Flickr feed right now.";
+              caption.hidden = false;
+            }
+            return;
+          }
+          loadFromFeed(feed.items);
+        };
+
+        const script = document.createElement("script");
+        script.src = "https://www.flickr.com/services/feeds/photos_public.gne?id=199418410@N04&lang=en-us&format=json";
+        script.async = true;
+        script.onerror = function () {
+          if (caption) {
+            caption.textContent = "Could not load Flickr feed right now.";
+            caption.hidden = false;
+          }
+        };
+        document.body.appendChild(script);
+      })();
     </script>
 </html>
