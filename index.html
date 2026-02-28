@@ -170,6 +170,37 @@
                 font-weight: 600;
             }
 
+            .experience-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.9rem;
+                margin-top: 0.7rem;
+            }
+
+            .experience-item {
+                background: var(--panel);
+                border: 0.15rem solid var(--border);
+                border-radius: 0.5rem;
+                padding: 0.8rem 0.9rem;
+            }
+
+            .experience-item h3 {
+                color: var(--accent);
+                font-size: 1rem;
+                font-weight: 600;
+                margin-bottom: 0.2rem;
+            }
+
+            .experience-item .meta {
+                font-size: 0.9rem;
+                margin-bottom: 0.4rem;
+                opacity: 0.95;
+            }
+
+            .experience-item p {
+                font-size: 0.95rem;
+            }
+
             footer {
                 text-align: center;
                 padding: 40px 0;
@@ -182,6 +213,7 @@
         <header role="banner">
             <nav aria-label="Primary">
                 <a href="#about">About</a>
+                <a href="#experience">Work</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -211,6 +243,36 @@
         <section id="about">
             <h2>About</h2>
             <p>I'm a software developer and I have had experience on the C# .Net for the past four years until now. I enjoy developing apps and learning new technologies. My development experience is mostly about developing Restful Web APIs via ASP.NET and ASP.NET Core. I'm looking for a workplace where I can improve my skills and help teammates with their skill improvement also. I prefer to work as a Backend developer rather than a Full-Stack developer, but I can work as a Full-Stack developer if there is any need. </p>
+        </section>
+
+        <section id="experience">
+            <h2>Work Experience</h2>
+
+            <div class="experience-list">
+                <article class="experience-item">
+                    <h3>.NET Developer · SHEPPA</h3>
+                    <p class="meta">September 2021 - Present · Sofia, Bulgaria</p>
+                    <p>
+                        Working as a .NET developer on production systems with a backend-focused scope.
+                    </p>
+                </article>
+
+                <article class="experience-item">
+                    <h3>Software Engineer 1 / Junior Full-Stack Engineer · ScaleFocus</h3>
+                    <p class="meta">December 2019 - June 2020 · Sofia, Bulgaria</p>
+                    <p>
+                        Contributed to an ongoing enterprise project across frontend and backend work. Delivered new features, refactored JWT role-based authorization, improved code quality from QA feedback, and built an admin panel while learning Angular and microservices tooling.
+                    </p>
+                </article>
+
+                <article class="experience-item">
+                    <h3>Junior .NET Developer · REMMSOFT</h3>
+                    <p class="meta">January 2014 - July 2017 · Bursa, Turkey</p>
+                    <p>
+                        Worked on desktop, MVC web, and REST API projects in C#/.NET and ASP.NET using Entity Framework (Code First) and Onion architecture. Built features, refactored existing modules, created Telerik reports, and implemented role-based JWT authentication and authorization.
+                    </p>
+                </article>
+            </div>
         </section>
 
         <section id="projects">
