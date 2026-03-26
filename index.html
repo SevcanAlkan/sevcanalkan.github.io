@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header>
+    <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sevcan ALKAN</title>
         <meta name="description" content="It's just my simple personal page." />
 
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
         <style>
             :root {
@@ -81,6 +81,7 @@
                 padding: 1rem 1rem;
                 max-width: 60rem;
                 margin: auto;
+                scroll-margin-top: 4.5rem;
             }
 
             h1, h2 {
@@ -170,6 +171,13 @@
                 font-weight: 600;
             }
 
+            .contact-row {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 0.6rem;
+            }
+
             .experience-list {
                 display: flex;
                 flex-direction: column;
@@ -201,6 +209,65 @@
                 font-size: 0.95rem;
             }
 
+            .section-intro {
+                margin-top: 0.7rem;
+                font-size: 0.98rem;
+            }
+
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+                gap: 0.9rem;
+                margin-top: 1rem;
+            }
+
+            .project-card {
+                background: var(--panel);
+                border: 0.15rem solid var(--border);
+                border-radius: 0.5rem;
+                padding: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.7rem;
+            }
+
+            .project-tag {
+                color: var(--accent);
+                font-size: 0.82rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+
+            .project-card h3 {
+                color: var(--accent);
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            .project-card p {
+                font-size: 0.95rem;
+            }
+
+            .project-actions {
+                margin-top: auto;
+            }
+
+            .project-actions a {
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .section-footer-link {
+                margin-top: 1rem;
+            }
+
+            .section-footer-link a {
+                display: inline-flex;
+                align-items: center;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
             footer {
                 text-align: center;
                 padding: 40px 0;
@@ -208,14 +275,15 @@
                 font-size: 14px;
             }
         </style>
-    </header>
+    </head>
     <body>
         <header role="banner">
             <nav aria-label="Primary">
-                <a href="#about">About</a>
+                <a href="#hero">About</a>
                 <a href="#experience">Work</a>
                 <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+                <a href="#apps">Apps</a>
+                <a id="contactNavLink" href="#contact" hidden>Contact</a>
             </nav>
         </header>
 
@@ -236,7 +304,7 @@
                     object-fit: cover;" />
             <div style="display: flex; flex-direction: column; gap: 0.6rem;">
                 <h1>Hi, I'm Sevcan ALKAN 👋</h1>
-                <p>Full-stack dev (.NET & React) | Aviation 📸 | Code that just works™</p>
+                <p>Full-stack dev (.NET &amp; React) | Aviation 📸 | Code that just works™</p>
             </div>
         </section>
 
@@ -277,15 +345,44 @@
 
         <section id="projects">
             <h2>Projects</h2>
+            <p class="section-intro">
+                Selected engineering work, product case studies, and technical builds will live here.
+            </p>
 
-            <div class="editor-box">
-        <pre>
-cd ~/projects
-open resume-landing-page
-
-# work in progress...
-        </pre>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <p class="project-tag">Soon</p>
+                    <h3>Projects section in progress</h3>
+                    <p>
+                        This area will be used for selected software projects such as public work,
+                        technical breakdowns, and portfolio pieces.
+                    </p>
+                </article>
             </div>
+        </section>
+
+        <section id="apps">
+            <h2>Apps</h2>
+            <p class="section-intro">
+                Product apps with dedicated landing pages, screenshots, and support information.
+            </p>
+
+            <div class="projects-grid">
+                <article class="project-card">
+                    <p class="project-tag">App</p>
+                    <h3>Shylo</h3>
+                    <p>
+                        Pet care, routines, health records, reminders, meals, medications, and timeline history in one calm app.
+                    </p>
+                    <div class="project-actions">
+                        <a href="apps/shylo/">Open Shylo page</a>
+                    </div>
+                </article>
+            </div>
+
+            <p class="section-footer-link">
+                <a href="apps/">See all apps</a>
+            </p>
         </section>
 
         <section id="photography">
@@ -313,78 +410,89 @@ open resume-landing-page
             </a>
         </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <div style="
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                gap: 0.6rem; ">
-                    <p>Email:</p>
-                    <span id="email" data-e="Y29udGFjdEBzZXZjYW5hbGthbi5jb20"></span>
-            </div>
-        </section>
+        <section id="contact" hidden></section>
 
         <footer>
-            © 2025 Sevcan ALKAN
+            © 2026 Sevcan ALKAN
         </footer>
-    </body>
-    <script>
-      (function(){
-        const element = document.getElementById('email');
-        if(!element)
-          return;
+        <button id="topButton"
+            style="
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                border: none;
+                border-radius: 0.4rem;
+                background: var(--accent);
+                color: #2B2B2B;
+                font-weight: 600;
+                cursor: pointer;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .25s ease;
+            ">
+            ↑ Top
+        </button>
 
-        const value = element.getAttribute('data-e');
-        try {
-          const address = atob(value);
-          const a = document.createElement('a');
-          a.href = 'mailto:' + address;
-          a.textContent = address;
-          element.appendChild(a);
-        } catch(e) { /* ignore */ }
-      })();
-    </script>
+        <script>
+          (function () {
+            const section = document.getElementById("contact");
+            const navLink = document.getElementById("contactNavLink");
+            if (!section || !navLink) {
+              return;
+            }
 
-    <button id="topButton"
-        style="
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 0.4rem;
-            background: var(--accent);
-            color: #2B2B2B;
-            font-weight: 600;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .25s ease;
-        ">
-        ↑ Top
-    </button>
+            try {
+              const address = [
+                atob("Y29udGFjdA=="),
+                "@",
+                atob("c2V2Y2FuYWxrYW4="),
+                ".",
+                atob("Y29t"),
+              ].join("");
+              const heading = document.createElement("h2");
+              heading.textContent = "Contact";
 
-    <script>
-      const topBtn = document.getElementById("topButton");
+              const row = document.createElement("div");
+              row.className = "contact-row";
 
-      window.addEventListener("scroll", () => {
-          if (window.scrollY > 300) {
-              topBtn.style.opacity = "1";
-              topBtn.style.pointerEvents = "auto";
-          } else {
-              topBtn.style.opacity = "0";
-              topBtn.style.pointerEvents = "none";
-          }
-      });
+              const label = document.createElement("p");
+              label.textContent = "Email:";
 
-      topBtn.addEventListener("click", () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    </script>
-    <script>
-      (function () {
+              const link = document.createElement("a");
+              link.href = "mailto:" + address;
+              link.textContent = address;
+
+              row.append(label, link);
+              section.append(heading, row);
+              section.hidden = false;
+              navLink.hidden = false;
+            } catch (error) {
+              /* ignore */
+            }
+          })();
+        </script>
+
+        <script>
+          const topBtn = document.getElementById("topButton");
+
+          window.addEventListener("scroll", () => {
+              if (window.scrollY > 300) {
+                  topBtn.style.opacity = "1";
+                  topBtn.style.pointerEvents = "auto";
+              } else {
+                  topBtn.style.opacity = "0";
+                  topBtn.style.pointerEvents = "none";
+              }
+          });
+
+          topBtn.addEventListener("click", () => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        </script>
+        <script>
+          (function () {
         const featuredImage = document.getElementById("photoFeaturedImage");
         const caption = document.getElementById("photoCaption");
         const meta = document.getElementById("photoMeta");
@@ -511,6 +619,7 @@ open resume-landing-page
           }
         };
         document.body.appendChild(script);
-      })();
-    </script>
+          })();
+        </script>
+    </body>
 </html>

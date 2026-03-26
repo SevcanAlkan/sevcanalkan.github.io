@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shylo Guide · Sevcan ALKAN</title>
+        <meta
+            name="description"
+            content="Getting started guide for Shylo."
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../../../site-pages.css" />
+    </head>
+    <body>
+        <header class="site-header" role="banner">
+            <nav class="site-nav" aria-label="Primary">
+                <a class="site-brand" href="../../../">Sevcan ALKAN</a>
+                <div class="site-nav-links">
+                    <a href="../">Shylo</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-shell">
+            <section class="page-hero">
+                <p class="eyebrow">Shylo Guide</p>
+                <h1>User Guide</h1>
+                <p>
+                    A simple starter guide for using Shylo. This page is a first documentation
+                    route and can grow into fuller help content later.
+                </p>
+            </section>
+
+            <section class="legal-layout" aria-label="Shylo guide sections">
+                <article class="legal-card">
+                    <h2>Overview</h2>
+                    <p>
+                        Shylo helps keep pet care information in one place, including records,
+                        reminders, meals, medications, and routine history.
+                    </p>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Getting started</h2>
+                    <ol>
+                        <li>Create your pet profile with the most important care details.</li>
+                        <li>Add vaccines, treatments, medications, and feeding routines.</li>
+                        <li>Turn on reminders for upcoming care tasks.</li>
+                        <li>Use the timeline to review what was done and what is due next.</li>
+                    </ol>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Pet profile</h2>
+                    <p>
+                        Start by entering the pet name and any useful health or care information,
+                        such as allergies, chronic conditions, vet contact details, or notes you
+                        want available during daily care.
+                    </p>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Records and reminders</h2>
+                    <p>
+                        Add vaccines, treatments, medication schedules, and meals as individual care
+                        items. Once reminders are configured, Shylo helps you keep upcoming work
+                        visible and easier to complete on time.
+                    </p>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Documents and photos</h2>
+                    <p>
+                        Keep supporting files such as vaccine cards, prescriptions, invoices, and
+                        reference photos attached to the pet record when those features are
+                        available in the app.
+                    </p>
+                </article>
+
+                <article class="legal-card" id="guideHelp">
+                    <h2>Need help?</h2>
+                </article>
+
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            © 2026 Sevcan ALKAN
+        </footer>
+        <script>
+          (function () {
+            const section = document.getElementById("guideHelp");
+            if (!section) {
+              return;
+            }
+
+            try {
+              const address = [
+                atob("Y29udGFjdA=="),
+                "@",
+                atob("c2V2Y2FuYWxrYW4="),
+                ".",
+                atob("Y29t"),
+              ].join("");
+
+              const row = document.createElement("div");
+              row.className = "contact-row";
+
+              const label = document.createElement("p");
+              label.textContent = "Email:";
+
+              const link = document.createElement("a");
+              link.href = "mailto:" + address;
+              link.textContent = address;
+
+              row.append(label, link);
+              section.appendChild(row);
+            } catch (error) {
+              /* ignore */
+            }
+          })();
+        </script>
+    </body>
+</html>
