@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wordminder Guide · Sevcan ALKAN</title>
+        <meta
+            name="description"
+            content="Getting started guide for Wordminder."
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../../../site-pages.css" />
+    </head>
+    <body>
+        <header class="site-header" role="banner">
+            <nav class="site-nav" aria-label="Primary">
+                <a class="site-brand" href="../../../">Sevcan ALKAN</a>
+                <div class="site-nav-links">
+                    <a href="../">Wordminder</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-shell">
+            <section class="page-hero">
+                <p class="eyebrow">Wordminder Guide</p>
+                <h1>User Guide</h1>
+                <p>
+                    A simple starter guide for using Wordminder. This page is a first
+                    documentation route and can grow into fuller help content later.
+                </p>
+            </section>
+
+            <section class="legal-layout" aria-label="Wordminder guide sections">
+                <article class="legal-card">
+                    <h2>Overview</h2>
+                    <p>
+                        Wordminder helps you collect useful words, organize them into language
+                        pairs, and practice them in short daily study sessions.
+                    </p>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Getting started</h2>
+                    <ol>
+                        <li>Sign in and create a collection for a source and target language.</li>
+                        <li>Add your own words or start from a predefined starter collection.</li>
+                        <li>Open the word list and begin a short practice session.</li>
+                        <li>Use daily reminders to keep your study rhythm consistent.</li>
+                    </ol>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Collections</h2>
+                    <p>
+                        Build multiple collections by language pair and switch between them as your
+                        study focus changes. Collection details can help you monitor word count,
+                        practice count, and success rate.
+                    </p>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Words and practice</h2>
+                    <p>
+                        Add original text, target text, meaning, extended meaning, difficulty, and
+                        proficiency information to each word. Practice runs as flashcard-style
+                        multiple-choice review with short summaries at the end of each session.
+                    </p>
+                </article>
+
+                <article class="legal-card">
+                    <h2>Reminders and preferences</h2>
+                    <p>
+                        Wordminder supports a daily reminder flow as well as theme and UI language
+                        preferences, so the study experience can stay simple and consistent.
+                    </p>
+                </article>
+
+                <article class="legal-card" id="guideHelp">
+                    <h2>Need help?</h2>
+                </article>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            © 2026 Sevcan ALKAN
+        </footer>
+        <script>
+          (function () {
+            const section = document.getElementById("guideHelp");
+            if (!section) {
+              return;
+            }
+
+            try {
+              const address = [
+                atob("Y29udGFjdA=="),
+                "@",
+                atob("c2V2Y2FuYWxrYW4="),
+                ".",
+                atob("Y29t"),
+              ].join("");
+
+              const row = document.createElement("div");
+              row.className = "contact-row";
+
+              const label = document.createElement("p");
+              label.textContent = "Email:";
+
+              const link = document.createElement("a");
+              link.href = "mailto:" + address;
+              link.textContent = address;
+
+              row.append(label, link);
+              section.appendChild(row);
+            } catch (error) {
+              /* ignore */
+            }
+          })();
+        </script>
+    </body>
+</html>
