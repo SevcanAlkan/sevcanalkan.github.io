@@ -103,13 +103,31 @@
                 background: var(--panel);
                 border-radius: 0.5rem;
                 overflow: hidden;
+                border: 0.15rem solid var(--border);
+            }
+
+            .photo-feature-trigger {
+                display: block;
+                width: 100%;
+                height: clamp(18rem, 48vw, 34rem);
+                border: none;
+                padding: 0;
+                background: var(--bg);
+                cursor: zoom-in;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+
+            .photo-feature-trigger:focus-visible {
+                outline: 0.15rem dashed var(--accent);
+                outline-offset: -0.3rem;
             }
 
             .photo-featured img {
                 width: 100%;
+                height: 100%;
                 display: block;
                 object-fit: contain;
-                aspect-ratio: 16 / 9;
                 background: var(--bg);
             }
 
@@ -117,6 +135,11 @@
                 padding: 0.7rem 0.8rem;
                 border-top: 0.1rem solid var(--border);
                 font-size: 0.95rem;
+                min-height: 4.8rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
 
             .photo-thumbs {
@@ -169,6 +192,70 @@
                 width: fit-content;
                 text-decoration: none;
                 font-weight: 600;
+            }
+
+            body.lightbox-open {
+                overflow: hidden;
+            }
+
+            .photo-lightbox {
+                position: fixed;
+                inset: 0;
+                z-index: 2000;
+                display: grid;
+                place-items: center;
+                padding: 1.25rem;
+                background: rgba(18, 18, 18, 0.92);
+            }
+
+            .photo-lightbox[hidden] {
+                display: none;
+            }
+
+            .photo-lightbox-dialog {
+                position: relative;
+                width: min(92vw, 82rem);
+                max-height: 92vh;
+                padding: 1rem;
+                border: 0.15rem solid var(--border);
+                border-radius: 0.75rem;
+                background: var(--panel);
+                box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.35);
+            }
+
+            .photo-lightbox-close {
+                position: absolute;
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 2.5rem;
+                height: 2.5rem;
+                border: 0.1rem solid var(--border);
+                border-radius: 999px;
+                background: rgba(43, 43, 43, 0.92);
+                color: var(--accent);
+                font: inherit;
+                font-size: 1.4rem;
+                line-height: 1;
+                cursor: pointer;
+            }
+
+            .photo-lightbox-close:focus-visible {
+                outline: 0.15rem dashed var(--accent);
+                outline-offset: 0.2rem;
+            }
+
+            .photo-lightbox-image {
+                width: 100%;
+                max-height: calc(92vh - 5.5rem);
+                object-fit: contain;
+                display: block;
+                background: var(--bg);
+                border-radius: 0.4rem;
+            }
+
+            .photo-lightbox-caption {
+                margin-top: 0.8rem;
+                font-size: 0.95rem;
             }
 
             .contact-row {
@@ -273,6 +360,29 @@
                 padding: 40px 0;
                 color: var(--text);
                 font-size: 14px;
+            }
+
+            @media (max-width: 680px) {
+                nav a {
+                    margin: 0 0.45rem;
+                }
+
+                .photo-feature-trigger {
+                    height: clamp(15rem, 70vw, 24rem);
+                }
+
+                .photo-lightbox {
+                    padding: 0.75rem;
+                }
+
+                .photo-lightbox-dialog {
+                    width: 100%;
+                    padding: 0.75rem;
+                }
+
+                .photo-lightbox-image {
+                    max-height: calc(92vh - 5rem);
+                }
             }
         </style>
     </head>
@@ -440,12 +550,19 @@
             </p>
 
             <div class="photo-featured">
-                <img
-                    id="photoFeaturedImage"
-                    src="https://placehold.co/1280x720/3C3F41/A9B7C6?text=Loading+Flickr+photos"
-                    alt="Loading featured Flickr photo"
-                    loading="eager"
-                />
+                <button
+                    class="photo-feature-trigger"
+                    id="photoPreviewTrigger"
+                    type="button"
+                    aria-label="Open current photo in a full-size preview"
+                >
+                    <img
+                        id="photoFeaturedImage"
+                        src="https://placehold.co/1280x720/3C3F41/A9B7C6?text=Loading+Flickr+photos"
+                        alt="Loading featured Flickr photo"
+                        loading="eager"
+                    />
+                </button>
                 <p class="photo-caption" id="photoCaption">Loading latest shots from Flickr...</p>
             </div>
 
@@ -456,6 +573,31 @@
                 View full aviation gallery on Flickr
             </a>
         </section>
+
+        <div class="photo-lightbox" id="photoLightbox" hidden aria-hidden="true">
+            <figure
+                class="photo-lightbox-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="photoLightboxCaption"
+            >
+                <button
+                    class="photo-lightbox-close"
+                    id="photoLightboxClose"
+                    type="button"
+                    aria-label="Close full-size photo preview"
+                >
+                    ×
+                </button>
+                <img
+                    class="photo-lightbox-image"
+                    id="photoLightboxImage"
+                    src=""
+                    alt=""
+                />
+                <figcaption class="photo-lightbox-caption" id="photoLightboxCaption"></figcaption>
+            </figure>
+        </div>
 
         <section id="contact" hidden></section>
 
@@ -543,11 +685,17 @@
         const featuredImage = document.getElementById("photoFeaturedImage");
         const caption = document.getElementById("photoCaption");
         const meta = document.getElementById("photoMeta");
+        const previewTrigger = document.getElementById("photoPreviewTrigger");
         const thumbsWrap = document.getElementById("photoThumbs");
+        const lightbox = document.getElementById("photoLightbox");
+        const lightboxImage = document.getElementById("photoLightboxImage");
+        const lightboxCaption = document.getElementById("photoLightboxCaption");
+        const lightboxClose = document.getElementById("photoLightboxClose");
         const fallbackFeatured = "https://placehold.co/1280x720/3C3F41/A9B7C6?text=Photo+temporarily+unavailable";
         const fallbackThumb = "https://placehold.co/640x360/3C3F41/A9B7C6?text=Unavailable";
+        const fallbackCaption = "The remote image host rate-limited this photo (HTTP 429).";
 
-        if (!featuredImage || !thumbsWrap) {
+        if (!featuredImage || !thumbsWrap || !previewTrigger || !lightbox || !lightboxImage || !lightboxCaption || !lightboxClose) {
           return;
         }
 
@@ -555,10 +703,42 @@
           featuredImage.src = fallbackFeatured;
           featuredImage.alt = "Featured photo temporarily unavailable";
           if (caption) {
-            caption.textContent = "The remote image host rate-limited this photo (HTTP 429).";
+            caption.textContent = fallbackCaption;
             caption.hidden = false;
           }
         });
+
+        lightboxImage.addEventListener("error", () => {
+          lightboxImage.src = fallbackFeatured;
+          lightboxImage.alt = "Photo preview temporarily unavailable";
+          lightboxCaption.textContent = fallbackCaption;
+        });
+
+        function getActiveThumb() {
+          return thumbsWrap.querySelector('.photo-thumb[aria-current="true"]');
+        }
+
+        function closeLightbox() {
+          lightbox.hidden = true;
+          lightbox.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("lightbox-open");
+          previewTrigger.focus();
+        }
+
+        function openLightbox() {
+          const activeThumb = getActiveThumb();
+          const full = activeThumb?.getAttribute("data-full") || featuredImage.src || fallbackFeatured;
+          const alt = activeThumb?.getAttribute("data-alt") || featuredImage.alt || "Aviation photo";
+          const text = activeThumb?.getAttribute("data-caption") || caption?.textContent || alt;
+
+          lightboxImage.src = full;
+          lightboxImage.alt = alt;
+          lightboxCaption.textContent = text || "Aviation photo";
+          lightbox.hidden = false;
+          lightbox.setAttribute("aria-hidden", "false");
+          document.body.classList.add("lightbox-open");
+          lightboxClose.focus();
+        }
 
         function selectThumb(thumb) {
           const thumbs = thumbsWrap.querySelectorAll(".photo-thumb");
@@ -572,6 +752,8 @@
 
           if (full) featuredImage.src = full;
           if (alt) featuredImage.alt = alt;
+          previewTrigger.setAttribute("aria-label", "Open full-size preview for " + (alt || "the current photo"));
+          previewTrigger.title = text || alt || "Open full-size preview";
           if (caption) {
             caption.textContent = text || "";
             caption.hidden = !text;
@@ -644,6 +826,19 @@
             selectThumb(first);
           }
         }
+
+        previewTrigger.addEventListener("click", openLightbox);
+        lightboxClose.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (event) => {
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !lightbox.hidden) {
+            closeLightbox();
+          }
+        });
 
         window.jsonFlickrFeed = function (feed) {
           if (!feed || !Array.isArray(feed.items)) {
