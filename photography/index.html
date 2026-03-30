@@ -14,17 +14,18 @@
         />
         <link rel="stylesheet" href="../site-pages.css" />
     </head>
-    <body>
+    <body class="photography-home">
         <header class="site-header" role="banner">
             <nav class="site-nav" aria-label="Primary">
                 <a class="site-brand" href="../">Sevcan ALKAN</a>
                 <div class="site-nav-links">
                     <a href="../">Home</a>
-                    <a href="./licensing/">Licensing</a>
-                    <a href="./contact/">Contact</a>
-                    <a href="./gear/">Gear</a>
-                    <a href="./faq/">FAQ</a>
+                    <a href="./gallery/">Gallery</a>
                     <a href="./favorites/">Favorites</a>
+                    <a href="./gear/">Gear</a>
+                    <a href="./licensing/">Licensing</a>
+                    <a href="./faq/">FAQ</a>
+                    <a href="./contact/">Contact</a>
                 </div>
             </nav>
         </header>
@@ -41,7 +42,7 @@
                     </p>
                     <div class="hero-actions">
                         <a class="button-link primary" href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">Open Flickr</a>
-                        <a class="button-link" href="./favorites/">Open Favorites</a>
+                        <a class="button-link" href="./gallery/">Open Gallery</a>
                         <a class="button-link" href="./contact/">Photography Contact</a>
                     </div>
                 </div>
@@ -98,18 +99,15 @@
                         Print Order Support
                     </a>
                 </div>
-                <p class="muted">
-                    The store button will point to Etsy in a new tab once the first print selection is live.
-                </p>
             </section>
 
             <section class="content-grid">
                 <article class="content-card">
                     <h2>Explore</h2>
                     <ul>
+                        <li><a href="./gallery/">Gallery</a> for a live uneven wall pulled from Flickr</li>
                         <li><a href="./favorites/">Favorites</a> for a curated selection of featured shots</li>
                         <li><a href="./gear/">Gear</a> for current camera bodies and lenses</li>
-                        <li><a href="./faq/">FAQ</a> for reposting, print, and usage questions</li>
                     </ul>
                 </article>
 
@@ -177,5 +175,27 @@
         <footer class="site-footer">
             © 2026 Sevcan ALKAN
         </footer>
+        <script>
+            (function () {
+                const backgroundUrl = "https://live.staticflickr.com/65535/55105999532_603899df8d_4k.jpg?s=eyJpIjo1NTEwNTk5OTUzMiwiZSI6MTc3NDg5MDU3MiwicyI6IjhmMmYyYTAxZjJlMWY4ZjI2MjA1ZmRhOTA2YThjNGViOTNlZmZhMjMiLCJ2IjoxfQ";
+                const shouldLoadLargeBackground =
+                    window.innerWidth >= 1100 &&
+                    window.devicePixelRatio >= 1 &&
+                    !(window.matchMedia && window.matchMedia("(prefers-reduced-data: reduce)").matches);
+
+                if (!shouldLoadLargeBackground) {
+                    return;
+                }
+
+                const image = new Image();
+                image.decoding = "async";
+                image.loading = "eager";
+                image.onload = function () {
+                    document.body.style.setProperty("--photography-bg-image", 'url("' + backgroundUrl + '")');
+                    document.body.classList.add("photography-bg-ready");
+                };
+                image.src = backgroundUrl;
+            })();
+        </script>
     </body>
 </html>

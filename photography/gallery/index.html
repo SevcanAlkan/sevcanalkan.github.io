@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Photography Gallery · Sevcan ALKAN</title>
+        <meta
+            name="description"
+            content="A live gallery wall of photography by Sevcan Alkan, pulled from Flickr."
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../../site-pages.css" />
+    </head>
+    <body class="gallery-page">
+        <header class="site-header" role="banner">
+            <nav class="site-nav" aria-label="Primary">
+                <a class="site-brand" href="../../">Sevcan ALKAN</a>
+                <div class="site-nav-links">
+                    <a href="../">Photography</a>
+                    <a href="../gallery/">Gallery</a>
+                    <a href="../favorites/">Favorites</a>
+                    <a href="../gear/">Gear</a>
+                    <a href="../licensing/">Licensing</a>
+                    <a href="../faq/">FAQ</a>
+                    <a href="../contact/">Contact</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-shell gallery-page-shell stack">
+            <section class="page-hero gallery-hero">
+                <p class="eyebrow">Photography</p>
+                <h1>Gallery</h1>
+                <p>
+                    A living wall pulled from Flickr and arranged with an uneven rhythm rather than a
+                    rigid grid. On wider screens the layout opens into a staggered multi-column
+                    gallery with panoramic strips, denser blocks, and quieter gaps between rows.
+                </p>
+                <div class="hero-actions">
+                    <a class="button-link primary" href="https://www.flickr.com/photos/sevcan-alkan/albums/72177720332128897/" target="_blank" rel="noopener noreferrer">Open Flickr</a>
+                    <a class="button-link" href="../favorites/">Open Favorites</a>
+                    <a class="button-link" href="../">Back to Photography</a>
+                </div>
+            </section>
+
+            <section class="gallery-wall-section" aria-label="Photography gallery wall">
+                <p class="gallery-status" id="galleryStatus" hidden>Loading panoramic photographs from Flickr...</p>
+                <div class="gallery-wall" id="galleryWall"></div>
+            </section>
+
+            <section class="gallery-footer-actions" aria-label="More photography links">
+                <a
+                    class="button-link primary"
+                    href="https://www.flickr.com/photos/sevcan-alkan/albums/72177720332128897/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Open Flickr to see more
+                </a>
+            </section>
+        </main>
+
+        <div class="gallery-lightbox" id="galleryLightbox" hidden aria-hidden="true">
+            <figure class="gallery-lightbox-panel" role="dialog" aria-modal="true" aria-label="Photography preview">
+                <button
+                    class="gallery-lightbox-close"
+                    id="galleryLightboxClose"
+                    type="button"
+                    aria-label="Close gallery preview"
+                >
+                    ×
+                </button>
+                <img
+                    class="gallery-lightbox-image"
+                    id="galleryLightboxImage"
+                    src=""
+                    alt=""
+                />
+                <figcaption class="gallery-lightbox-meta">
+                    <div class="gallery-lightbox-copy">
+                        <span class="gallery-lightbox-title" id="galleryLightboxTitle"></span>
+                        <span class="gallery-lightbox-subtitle" id="galleryLightboxSubtitle"></span>
+                    </div>
+                    <a
+                        class="button-link gallery-lightbox-link"
+                        id="galleryLightboxLink"
+                        href="https://www.flickr.com/photos/sevcan-alkan/albums/72177720332128897/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open on Flickr
+                    </a>
+                </figcaption>
+            </figure>
+        </div>
+
+        <footer class="site-footer">
+            © 2026 Sevcan ALKAN
+        </footer>
+
+        <script>
+            (function () {
+                const wall = document.getElementById("galleryWall");
+                const status = document.getElementById("galleryStatus");
+                const lightbox = document.getElementById("galleryLightbox");
+                const lightboxImage = document.getElementById("galleryLightboxImage");
+                const lightboxTitle = document.getElementById("galleryLightboxTitle");
+                const lightboxSubtitle = document.getElementById("galleryLightboxSubtitle");
+                const lightboxLink = document.getElementById("galleryLightboxLink");
+                const lightboxClose = document.getElementById("galleryLightboxClose");
+                const fallbackImage = "https://placehold.co/1200x800/3C3F41/A9B7C6?text=Photo+temporarily+unavailable";
+                const albumFeed = "https://api.flickr.com/services/feeds/photoset.gne?nsid=199418410@N04&set=72177720332128897&lang=en-us&format=json";
+                const photostreamFeed = "https://www.flickr.com/services/feeds/photos_public.gne?id=199418410@N04&lang=en-us&format=json";
+                const photoLayouts = [
+                    "feature",
+                    "standard",
+                    "standard",
+                    "standard",
+                    "full",
+                    "standard",
+                    "standard",
+                    "feature",
+                    "standard",
+                    "standard",
+                    "feature",
+                    "standard",
+                    "standard"
+                ];
+                const quoteInsertions = [
+                    { afterPhoto: 2, size: "standard" },
+                    { afterPhoto: 4, size: "standard" },
+                    { afterPhoto: 9, size: "wide" },
+                    { afterPhoto: 12, size: "standard" }
+                ];
+                const quotePool = [
+                    "Aviation photography slows the moment down long enough for me to really see it.",
+                    "I am always chasing the line where engineering precision meets a human sense of wonder.",
+                    "Airports feel like living systems, and photography lets me keep a fragment of that rhythm.",
+                    "The best frame is rarely the loudest one. It is the one that makes the aircraft breathe.",
+                    "I photograph airplanes the same way I study software: through structure, timing, and intent.",
+                    "Every arrival has its own character, and that is what keeps me coming back to the runway.",
+                    "Photography gives me a way to turn attention into memory before the motion disappears.",
+                    "I like images that keep the scale of aviation intact without losing the emotion of the scene.",
+                    "A good aviation photograph is part observation, part patience, and part respect for the machine.",
+                    "What keeps me shooting is the feeling that the next light change can make the whole scene new."
+                ];
+                let activeFeed = "album";
+                let loadTimer = null;
+                let fallbackAttempted = false;
+                let resizeFrame = null;
+
+                if (!wall || !status || !lightbox || !lightboxImage || !lightboxTitle || !lightboxSubtitle || !lightboxLink || !lightboxClose) {
+                    return;
+                }
+
+                function formatDate(value) {
+                    try {
+                        return new Intl.DateTimeFormat("en", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                        }).format(new Date(value));
+                    } catch (error) {
+                        return "Flickr";
+                    }
+                }
+
+                function shuffle(items) {
+                    const copy = items.slice();
+
+                    for (let index = copy.length - 1; index > 0; index -= 1) {
+                        const swapIndex = Math.floor(Math.random() * (index + 1));
+                        const current = copy[index];
+                        copy[index] = copy[swapIndex];
+                        copy[swapIndex] = current;
+                    }
+
+                    return copy;
+                }
+
+                function scheduleGridSizing() {
+                    if (resizeFrame) {
+                        window.cancelAnimationFrame(resizeFrame);
+                    }
+
+                    resizeFrame = window.requestAnimationFrame(() => {
+                        const wallStyles = window.getComputedStyle(wall);
+                        const rowUnit = parseFloat(wallStyles.gridAutoRows) || 8;
+                        const gap = parseFloat(wallStyles.rowGap || wallStyles.gap) || 0;
+
+                        wall.querySelectorAll(".gallery-tile, .gallery-quote").forEach((item) => {
+                            const measureTarget = item.classList.contains("gallery-tile")
+                                ? item.querySelector(".gallery-tile-frame")
+                                : item;
+
+                            if (!measureTarget) {
+                                return;
+                            }
+
+                            item.style.gridRowEnd = "";
+
+                            const height = measureTarget.getBoundingClientRect().height;
+                            const span = Math.max(1, Math.ceil((height + gap) / (rowUnit + gap)));
+                            item.style.gridRowEnd = "span " + span;
+                        });
+                    });
+                }
+
+                function closeLightbox() {
+                    lightbox.hidden = true;
+                    lightbox.setAttribute("aria-hidden", "true");
+                    document.body.classList.remove("gallery-lightbox-open");
+                }
+
+                function openLightbox(button) {
+                    const full = button.getAttribute("data-full") || fallbackImage;
+                    const alt = button.getAttribute("data-alt") || "Photography preview";
+                    const title = (button.getAttribute("data-title") || "").trim();
+                    const subtitle = button.getAttribute("data-subtitle") || "Flickr";
+                    const link = button.getAttribute("data-link") || "https://www.flickr.com/photos/sevcan-alkan/albums/72177720332128897/";
+
+                    lightboxImage.src = full;
+                    lightboxImage.alt = alt;
+                    lightboxTitle.textContent = title;
+                    lightboxTitle.hidden = title.length === 0;
+                    lightboxSubtitle.textContent = subtitle;
+                    lightboxLink.href = link;
+                    lightbox.hidden = false;
+                    lightbox.setAttribute("aria-hidden", "false");
+                    document.body.classList.add("gallery-lightbox-open");
+                    lightboxClose.focus();
+                }
+
+                function makePhotoTile(item, index) {
+                    const title = (item.title || "").trim();
+                    const published = formatDate(item.published);
+                    const layout = photoLayouts[index % photoLayouts.length];
+                    const preview = item.media.m.replace("_m.", "_c.");
+                    const full = item.media.m.replace("_m.", "_b.");
+                    const photoLink = item.link || "https://www.flickr.com/photos/sevcan-alkan/albums/72177720332128897/";
+
+                    const figure = document.createElement("figure");
+                    figure.className = "gallery-tile gallery-tile--" + layout;
+
+                    const button = document.createElement("button");
+                    button.className = "gallery-tile-button";
+                    button.type = "button";
+                    button.setAttribute("data-full", full);
+                    button.setAttribute("data-alt", title || "Photography preview");
+                    button.setAttribute("data-title", title);
+                    button.setAttribute("data-subtitle", "Flickr · " + published);
+                    button.setAttribute("data-link", photoLink);
+                    button.setAttribute(
+                        "aria-label",
+                        title ? "Open larger preview for " + title : "Open larger photography preview"
+                    );
+
+                    const frame = document.createElement("div");
+                    frame.className = "gallery-tile-frame";
+
+                    const media = document.createElement("div");
+                    media.className = "gallery-tile-media";
+
+                    const image = document.createElement("img");
+                    image.loading = "lazy";
+                    image.decoding = "async";
+                    image.src = preview;
+                    image.alt = title || "Photography preview";
+                    image.addEventListener("load", scheduleGridSizing);
+                    image.addEventListener("error", () => {
+                        if (image.src !== item.media.m) {
+                            image.src = item.media.m;
+                            scheduleGridSizing();
+                            return;
+                        }
+                        image.src = fallbackImage;
+                        image.alt = "Photo temporarily unavailable";
+                        scheduleGridSizing();
+                    });
+
+                    media.appendChild(image);
+                    frame.appendChild(media);
+                    button.appendChild(frame);
+                    figure.appendChild(button);
+
+                    button.addEventListener("click", () => openLightbox(button));
+
+                    return figure;
+                }
+
+                function makeQuoteTile(quote, size) {
+                    const article = document.createElement("article");
+                    article.className = "gallery-quote" + (size === "wide" ? " gallery-quote--wide" : "");
+
+                    const copy = document.createElement("div");
+                    copy.className = "gallery-quote-copy";
+
+                    const mark = document.createElement("span");
+                    mark.className = "gallery-quote-mark";
+                    mark.setAttribute("aria-hidden", "true");
+                    mark.textContent = "“";
+
+                    const text = document.createElement("p");
+                    text.className = "gallery-quote-text";
+                    text.textContent = quote;
+
+                    const kicker = document.createElement("span");
+                    kicker.className = "gallery-quote-kicker";
+                    kicker.textContent = "Photography / Aviation";
+
+                    copy.appendChild(mark);
+                    copy.appendChild(text);
+                    copy.appendChild(kicker);
+                    article.appendChild(copy);
+
+                    return article;
+                }
+
+                function renderFeed(items) {
+                    if (!Array.isArray(items) || items.length === 0) {
+                        status.hidden = false;
+                        status.textContent = "No public photographs were returned from Flickr.";
+                        return;
+                    }
+
+                    const photoItems = items.slice(0, photoLayouts.length);
+                    const selectedQuotes = shuffle(quotePool).slice(0, quoteInsertions.length);
+
+                    wall.innerHTML = "";
+                    status.hidden = true;
+
+                    photoItems.forEach((item, index) => {
+                        wall.appendChild(makePhotoTile(item, index));
+
+                        const insertion = quoteInsertions.find((entry) => entry.afterPhoto === index + 1);
+                        if (insertion) {
+                            const quote = selectedQuotes.shift();
+                            if (quote) {
+                                wall.appendChild(makeQuoteTile(quote, insertion.size));
+                            }
+                        }
+                    });
+
+                    scheduleGridSizing();
+                }
+
+                lightboxImage.addEventListener("error", () => {
+                    lightboxImage.src = fallbackImage;
+                    lightboxImage.alt = "Photo preview temporarily unavailable";
+                });
+
+                lightboxClose.addEventListener("click", closeLightbox);
+                lightbox.addEventListener("click", (event) => {
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape" && !lightbox.hidden) {
+                        closeLightbox();
+                    }
+                });
+                window.addEventListener("resize", scheduleGridSizing);
+                window.addEventListener("load", scheduleGridSizing);
+
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(scheduleGridSizing).catch(() => {});
+                }
+
+                function beginFallback(message) {
+                    if (fallbackAttempted) {
+                        status.hidden = false;
+                        status.textContent = message || "Could not load Flickr right now.";
+                        return;
+                    }
+
+                    fallbackAttempted = true;
+                    activeFeed = "photostream";
+                    status.hidden = false;
+                    status.textContent = "Album feed unavailable. Loading Flickr photostream instead...";
+                    loadFeed(photostreamFeed);
+                }
+
+                function loadFeed(url) {
+                    if (loadTimer) {
+                        window.clearTimeout(loadTimer);
+                    }
+
+                    const script = document.createElement("script");
+                    script.src = url;
+                    script.async = true;
+                    script.onerror = function () {
+                        if (activeFeed === "album") {
+                            beginFallback();
+                            return;
+                        }
+
+                        status.hidden = false;
+                        status.textContent = "Could not load Flickr right now.";
+                    };
+
+                    document.body.appendChild(script);
+
+                    if (activeFeed === "album") {
+                        loadTimer = window.setTimeout(() => {
+                            beginFallback("Could not load Flickr right now.");
+                        }, 4500);
+                    }
+                }
+
+                window.jsonFlickrFeed = function (feed) {
+                    if (loadTimer) {
+                        window.clearTimeout(loadTimer);
+                        loadTimer = null;
+                    }
+
+                    if (!feed || !Array.isArray(feed.items)) {
+                        if (activeFeed === "album") {
+                            beginFallback();
+                            return;
+                        }
+
+                        status.hidden = false;
+                        status.textContent = "Could not load Flickr right now.";
+                        return;
+                    }
+
+                    if (activeFeed === "album" && feed.items.length === 0) {
+                        beginFallback();
+                        return;
+                    }
+
+                    renderFeed(feed.items);
+                };
+
+                loadFeed(albumFeed);
+            })();
+        </script>
+    </body>
+</html>
