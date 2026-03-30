@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Found Equipment · Sevcan Alkan Photography</title>
+        <meta
+            name="description"
+            content="Found-item contact page for photography equipment belonging to Sevcan Alkan Photography."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../../../site-pages.css" />
+    </head>
+    <body>
+        <header class="site-header" role="banner">
+            <nav class="site-nav" aria-label="Primary">
+                <a class="site-brand" href="../../../">Sevcan ALKAN</a>
+                <div class="site-nav-links">
+                    <a href="../">Equipment</a>
+                    <a href="../../contact/">Contact</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-shell stack">
+            <section class="page-hero">
+                <p class="eyebrow">Sevcan Alkan Photography</p>
+                <h1>Found Equipment</h1>
+                <p id="foundIntro">
+                    If you found a tagged item belonging to Sevcan Alkan Photography, please use the
+                    contact details below.
+                </p>
+                <p class="meta-line" id="foundMeta">
+                    If the QR code contains an equipment code, it will appear below and be added to
+                    the email subject automatically.
+                </p>
+                <div class="route-block" id="equipmentCodeBlock" hidden>
+                    <pre id="equipmentCodeText">Equipment code: -</pre>
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2>Contact</h2>
+                <p>
+                    Please contact me directly for safe return coordination, ownership confirmation,
+                    or questions about tagged equipment.
+                </p>
+                <div class="link-row">
+                    <a class="button-link primary" href="tel:+359894024460">Call +359 894 02 44 60</a>
+                    <a
+                        class="button-link"
+                        id="equipmentEmailLink"
+                        data-base-email="photography@sevcanalkan.com"
+                        href="mailto:photography@sevcanalkan.com"
+                    >
+                        Email photography@sevcanalkan.com
+                    </a>
+                </div>
+                <p class="muted" id="equipmentContactHint">
+                    If the label code is visible, please include it in your message.
+                </p>
+            </section>
+
+            <section class="section-card">
+                <h2>What Helps Most</h2>
+                <ul>
+                    <li>The equipment code from the label, if available</li>
+                    <li>Where the item was found</li>
+                    <li>A short description of the item</li>
+                    <li>The best way and time to contact you back</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            © 2026 Sevcan ALKAN
+        </footer>
+        <script>
+            (function () {
+                const codeBlock = document.getElementById("equipmentCodeBlock");
+                const codeText = document.getElementById("equipmentCodeText");
+                const emailLink = document.getElementById("equipmentEmailLink");
+                const contactHint = document.getElementById("equipmentContactHint");
+                const intro = document.getElementById("foundIntro");
+                const meta = document.getElementById("foundMeta");
+
+                if (!codeBlock || !codeText || !emailLink || !contactHint || !intro || !meta) {
+                    return;
+                }
+
+                const baseEmail = emailLink.getAttribute("data-base-email") || "photography@sevcanalkan.com";
+                const params = new URLSearchParams(window.location.search);
+                const rawCode = (params.get("code") || window.location.hash.replace(/^#/, "")).trim();
+
+                if (!rawCode) {
+                    intro.textContent =
+                        "If you reached this page without a label code, you can still contact me using the details below.";
+                    meta.textContent =
+                        "The code-specific email subject is only added when the QR link includes a valid equipment code.";
+                    return;
+                }
+
+                const sanitized = rawCode.toUpperCase().replace(/[^A-Z0-9_-]/g, "").slice(0, 40);
+
+                if (!sanitized || sanitized.length < 3) {
+                    intro.textContent =
+                        "If you reached this page with an unreadable code, you can still contact me using the details below.";
+                    meta.textContent =
+                        "Only valid label codes are copied into the message automatically.";
+                    return;
+                }
+
+                const subject = "Found Equipment Contact - " + sanitized;
+                const body = [
+                    "Hello,",
+                    "",
+                    "I found an item with this equipment code:",
+                    sanitized,
+                    "",
+                    "Found location:",
+                    "",
+                    "Item description:",
+                    "",
+                    "Additional details:",
+                    ""
+                ].join("\n");
+
+                emailLink.href =
+                    "mailto:" +
+                    baseEmail +
+                    "?subject=" +
+                    encodeURIComponent(subject) +
+                    "&body=" +
+                    encodeURIComponent(body);
+
+                codeText.textContent = "Equipment code: " + sanitized;
+                codeBlock.hidden = false;
+                intro.textContent =
+                    "This page was opened from a tagged-item QR code. The equipment code shown below will be included in the email subject.";
+                meta.textContent =
+                    "Use the prefilled email button or mention the code during the call so the item can be matched against the private equipment record.";
+                contactHint.textContent =
+                    "The email button below will open with the equipment code already filled in.";
+            })();
+        </script>
+    </body>
+</html>

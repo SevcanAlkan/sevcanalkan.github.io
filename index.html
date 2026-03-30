@@ -189,9 +189,34 @@
             .photo-cta {
                 display: inline-flex;
                 align-items: center;
+                justify-content: center;
                 width: fit-content;
+                min-height: 2.9rem;
+                padding: 0.7rem 1rem;
+                border: 0.1rem solid var(--border);
+                border-radius: 999px;
+                background: var(--panel);
+                box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.2);
                 text-decoration: none;
                 font-weight: 600;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            }
+
+            .photo-cta:hover {
+                transform: translateY(-0.05rem);
+                box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.26);
+            }
+
+            .photo-actions .photo-cta:first-child {
+                background: var(--accent);
+                color: var(--bg);
+                border-color: transparent;
+            }
+
+            .photo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.8rem;
             }
 
             body.lightbox-open {
@@ -351,8 +376,21 @@
             .section-footer-link a {
                 display: inline-flex;
                 align-items: center;
+                justify-content: center;
+                min-height: 2.9rem;
+                padding: 0.7rem 1rem;
+                border: 0.1rem solid var(--border);
+                border-radius: 999px;
+                background: var(--panel);
+                box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.2);
                 text-decoration: none;
                 font-weight: 600;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            }
+
+            .section-footer-link a:hover {
+                transform: translateY(-0.05rem);
+                box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.26);
             }
 
             footer {
@@ -393,6 +431,7 @@
                 <a href="#experience">Work</a>
                 <a href="#projects">Projects</a>
                 <a href="#apps">Apps</a>
+                <a href="#photography">Photography</a>
                 <a id="contactNavLink" href="#contact" hidden>Contact</a>
             </nav>
         </header>
@@ -569,9 +608,14 @@
             <div class="photo-thumbs" id="photoThumbs" aria-label="Photo thumbnails">
             </div>
 
-            <a class="photo-cta" href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">
-                View full aviation gallery on Flickr
-            </a>
+            <div class="photo-actions">
+                <a class="photo-cta" href="photography/">
+                    Open photography page
+                </a>
+                <a class="photo-cta" href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">
+                    View full aviation gallery on Flickr
+                </a>
+            </div>
         </section>
 
         <div class="photo-lightbox" id="photoLightbox" hidden aria-hidden="true">
