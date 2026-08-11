@@ -785,6 +785,7 @@ button:focus-visible {
 
 @media (max-width: 760px) {
     .topic-rail {
+        display: none;
         top: 4.4rem;
         bottom: 0;
         height: auto;
