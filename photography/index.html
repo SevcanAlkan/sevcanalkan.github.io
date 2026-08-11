@@ -3,199 +3,144 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Photography · Sevcan ALKAN</title>
+        <title>Sevcan Alkan Photography</title>
         <meta
             name="description"
-            content="Aviation photography by Sevcan Alkan, based in Sofia, Bulgaria."
+            content="Aviation and motorsport photography by Sevcan Alkan, based in Sofia, Bulgaria."
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="../site-pages.css" />
+        <link rel="stylesheet" href="./portfolio.css" />
     </head>
-    <body class="photography-home">
-        <header class="site-header" role="banner">
-            <nav class="site-nav" aria-label="Primary">
-                <a class="site-brand" href="../">Sevcan ALKAN</a>
-                <div class="site-nav-links">
-                    <a href="../">Home</a>
-                    <a href="./gallery/">Gallery</a>
-                    <a href="./favorites/">Favorites</a>
-                    <a href="./gear/">Gear</a>
+    <body class="portfolio-body portfolio-home">
+        <header class="portfolio-header" role="banner">
+            <nav class="portfolio-nav" aria-label="Primary">
+                <a class="portfolio-brand" href="./" aria-current="page">
+                    Sevcan Alkan <span>Photography</span>
+                </a>
+                <div class="portfolio-links">
+                    <a href="#work">Work</a>
+                    <a href="./about/">About</a>
                     <a href="./licensing/">Licensing</a>
-                    <a href="./faq/">FAQ</a>
                     <a href="./contact/">Contact</a>
                 </div>
             </nav>
         </header>
 
-        <main class="page-shell stack">
-            <section class="page-hero app-hero">
-                <div class="app-hero-copy">
-                    <p class="eyebrow">Photography</p>
-                    <h1>Aviation photography from Sofia.</h1>
-                    <p>
-                        Software developer with a passion for aviation, usually around Sofia Airport
-                        with a camera in hand. This section collects the public photography pages for
-                        licensing, gear, contact details, and curated favorites.
-                    </p>
-                    <div class="hero-actions">
-                        <a class="button-link primary" href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">Open Flickr</a>
-                        <a class="button-link" href="./gallery/">Open Gallery</a>
-                        <a class="button-link" href="./contact/">Photography Contact</a>
-                    </div>
-                </div>
+        <nav class="topic-rail" aria-label="Photography topics">
+            <button class="topic-rail-trigger" type="button" aria-label="Show photography topics" aria-expanded="false"></button>
+            <div class="topic-rail-track">
+                <a href="#topic-a1-motor-park">A1 Motor Park</a>
+                <a href="#topic-red-bull-showrun">Red Bull Showrun</a>
+                <a href="#topic-plane-spotting">Plane Spotting</a>
+                <a href="#topic-boeing-787">Boeing 787</a>
+                <a href="#topic-bias-2025">BIAS 2025</a>
+                <a href="#topic-bus-spotting">Bus Spotting</a>
+                <a href="#topic-train-spotting">Train Spotting</a>
+                <a href="#topic-animals">Animals</a>
+                <a href="#topic-landscape">Landscape</a>
+                <a href="#topic-space">Space</a>
+                <a href="#topic-architecture">Architecture</a>
+                <a href="#topic-analog">Analog</a>
+            </div>
+        </nav>
 
-                <figure class="gallery-frame">
-                    <div class="gallery-frame-mat">
-                        <img
-                            src="https://live.staticflickr.com/65535/54624094994_8fe90aee7f_c.jpg"
-                            alt="Featured aviation photograph from the collection"
-                            loading="eager"
-                            decoding="async"
-                        />
-                    </div>
-                </figure>
-            </section>
-
-            <section class="section-card">
-                <h2>About</h2>
-                <p>
-                    My main focus is aviation photography and sports photography, with Sofia as my
-                    home base. I keep a separate page for equipment,
-                    ownership identification, and recovery details for tagged items.
-                </p>
-            </section>
-
-            <section class="section-card">
-                <h2>Prints</h2>
-                <p>
-                    I prepare fine art prints from a selected part of the collection, with a focus
-                    on presentation quality, controlled print identification, and long-term display.
-                    Selected releases can include a print ID and Certificate of Authenticity details,
-                    and eligible prints can be reviewed for verification or re-print support later.
-                </p>
-                <div class="hero-actions">
-                    <span class="button-link primary is-disabled" aria-disabled="true">
-                        Print Store · Coming Soon
-                    </span>
-                    <a
-                        class="button-link"
-                        href="mailto:photography@sevcanalkan.com?subject=Photo%20Print%20Reprint%20Request&amp;body=Hello,%0A%0AI%20would%20like%20to%20request%20a%20re-print%20for%20a%20photo%20from%20your%20collection.%0A%0APrint%20ID:%0ACertificate%20of%20Authenticity%20ID:%0APhoto%20title:%0AReason%20for%20re-print:%0AShipping%20country:%0AAdditional%20notes:%0A"
-                    >
-                        Request Photo Re-printing
-                    </a>
-                    <a
-                        class="button-link"
-                        href="mailto:photography@sevcanalkan.com?subject=Print%20Verification%20Request&amp;body=Hello,%0A%0AI%20would%20like%20to%20request%20verification%20for%20a%20print.%0A%0APrint%20ID:%0ACertificate%20of%20Authenticity%20ID:%0APhoto%20title:%0APurchase%20details:%0AAdditional%20notes:%0A"
-                    >
-                        Verify by CoA / Print ID
-                    </a>
-                    <a
-                        class="button-link"
-                        href="mailto:photography@sevcanalkan.com?subject=Print%20Order%20Support%20Request&amp;body=Hello,%0A%0AI%20need%20support%20for%20a%20print%20order.%0A%0AOrder%20reference:%0APrint%20ID:%0AIssue%20summary:%0AAdditional%20details:%0A"
-                    >
-                        Print Order Support
-                    </a>
+        <main>
+            <section class="home-hero" aria-labelledby="homeTitle">
+                <div class="home-hero-copy">
+                    <p class="home-kicker">Photography / Sofia, Bulgaria</p>
+                    <h1 id="homeTitle">Sevcan Alkan</h1>
+                    <p class="home-location">Aviation and motorsport photography.</p>
                 </div>
             </section>
 
-            <section class="content-grid">
-                <article class="content-card">
-                    <h2>Explore</h2>
-                    <ul>
-                        <li><a href="./gallery/">Gallery</a> for a live uneven wall pulled from Flickr</li>
-                        <li><a href="./favorites/">Favorites</a> for a curated selection of featured shots</li>
-                        <li><a href="./gear/">Gear</a> for current camera bodies and lenses</li>
-                    </ul>
-                </article>
+            <section id="work" aria-label="Photography topics">
+                <div class="work-group">
+                    <header class="work-group-header"><p>01 / Topics</p><h2>Motorsport</h2></header>
+                    <a class="work-panel" id="topic-a1-motor-park" href="./motorsports/a1-motor-park/" data-flickr-album="72177720335068850">
+                        <img src="https://live.staticflickr.com/65535/55455662862_80f8081b91_b.jpg" alt="Yellow Mercedes-AMG CLS 63 at A1 Motor Park" width="1024" height="1024" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">01</span><p class="work-kicker">Track Days</p><h3>A1 Motor Park</h3><p class="work-summary">Track-day speed, preparation, and action at the circuit.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-red-bull-showrun" href="./motorsports/red-bull-showrun/" data-flickr-album="72177720327279526">
+                        <img src="https://live.staticflickr.com/65535/54629524534_3c13916932_b.jpg" alt="Red Bull Showrun motorsport action" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">02</span><p class="work-kicker">Showrun</p><h3>Red Bull Showrun</h3><p class="work-summary">A focused record of the Red Bull Showrun, from machines to crowd energy.</p></div>
+                    </a>
+                </div>
 
-                <article class="content-card">
-                    <h2>Working with my photos</h2>
-                    <ul>
-                        <li><a href="./licensing/">Licensing</a> for usage and permission guidance</li>
-                        <li><a href="./contact/">Contact</a> for requests, questions, and collaborations</li>
-                        <li><a href="./equipment/">Equipment Ownership</a> for QR-based recovery and contact details</li>
-                    </ul>
-                </article>
-            </section>
+                <div class="work-group">
+                    <header class="work-group-header"><p>02 / Topics</p><h2>Aviation</h2></header>
+                    <a class="work-panel" id="topic-plane-spotting" href="./aviation/plane-spotting/" data-flickr-album="72177720335068865">
+                        <img src="https://live.staticflickr.com/65535/55107271800_dddc9fe4a7_b.jpg" alt="Commercial aircraft photographed while plane spotting" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">03</span><p class="work-kicker">Commercial aviation / Sofia</p><h3>Plane Spotting</h3><p class="work-summary">Aircraft, liveries, light, and movement around the airport.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-boeing-787" href="./aviation/boeing-787-dreamliner/" data-flickr-album="72177720329109853">
+                        <img src="https://live.staticflickr.com/65535/54794410654_3da032fb5f_b.jpg" alt="Boeing 787 Dreamliner aircraft" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">04</span><p class="work-kicker">Aircraft study</p><h3>Boeing 787 Dreamliner</h3><p class="work-summary">A close study of the Dreamliner’s form, details, and presence.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-bias-2025" href="./aviation/bias-2025/" data-flickr-album="72177720335077816">
+                        <img src="https://live.staticflickr.com/65535/54986977070_ff81294f3b_b.jpg" alt="Flying display at BIAS 2025" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">05</span><p class="work-kicker">Bucharest International Air Show</p><h3>BIAS 2025</h3><p class="work-summary">A photographic record of the displays, aircraft, and atmosphere.</p></div>
+                    </a>
+                </div>
 
-            <section class="content-grid">
-                <article class="content-card">
-                    <h2>Print Lab Details</h2>
-                    <ul>
-                        <li>Printer: Canon imagePROGRAF PRO-1100</li>
-                        <li>Print formats / sizes: A4, A3, A3+, with other sizes depending on the image and release</li>
-                        <li>Paper options: fine art matte, luster, and baryta-style papers depending on the photo</li>
-                        <li>Canvas options: selected works can be offered as rolled or stretched canvas on request</li>
-                        <li>Estimated delivery time: confirmed per order after print preparation, drying, inspection, and packaging</li>
-                    </ul>
-                </article>
+                <div class="work-group">
+                    <header class="work-group-header"><p>03 / Topics</p><h2>Transport</h2></header>
+                    <a class="work-panel" id="topic-bus-spotting" href="./transport/bus-spotting/" data-flickr-album="72177720335074322">
+                        <img src="https://live.staticflickr.com/65535/55127299738_d27ffdf46f_b.jpg" alt="Bus photographed in the city" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">06</span><p class="work-kicker">Street</p><h3>Bus Spotting</h3><p class="work-summary">Buses, routes, details, and movement through the city.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-train-spotting" href="./transport/train-spotting/" data-flickr-album="72177720335074347">
+                        <img src="https://live.staticflickr.com/65535/55127299563_a228bd1d8b_b.jpg" alt="Train and railway scene" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">07</span><p class="work-kicker">Rail</p><h3>Train Spotting</h3><p class="work-summary">Railway machines, stations, and journeys in motion.</p></div>
+                    </a>
+                </div>
 
-                <article class="content-card">
-                    <h2>Print Standards</h2>
-                    <p>
-                        The print workflow is built around pigment printing for better color stability
-                        and long-term display quality than short-life poster output. Actual longevity
-                        always depends on paper choice, framing, display light, humidity, and storage.
-                    </p>
-                    <ul>
-                        <li>Only selected photographs from the collection are prepared for print release</li>
-                        <li>Each supported print can carry a unique print ID for later verification</li>
-                        <li>Certificate of Authenticity details can be used for verification and record matching</li>
-                        <li>Damaged eligible prints can be reviewed for re-print support when the owner provides print or CoA details</li>
-                        <li>Small-batch and limited-release handling is preferred over open mass printing</li>
-                    </ul>
-                </article>
-            </section>
+                <div class="work-group">
+                    <header class="work-group-header"><p>04 / Topics</p><h2>Nature &amp; Sky</h2></header>
+                    <a class="work-panel" id="topic-animals" href="./nature-sky/animals/" data-flickr-album="72177720335068815">
+                        <img src="https://live.staticflickr.com/65535/55107266995_de84884e66_b.jpg" alt="Animal photographed in its environment" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">08</span><p class="work-kicker">Wildlife</p><h3>Animals</h3><p class="work-summary">Encounters with animals, observed with patience and attention.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-landscape" href="./nature-sky/landscape/" data-flickr-album="72177720335074352">
+                        <img src="https://live.staticflickr.com/65535/55096336497_fa47a6bab0_b.jpg" alt="Landscape and changing natural light" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">09</span><p class="work-kicker">Place</p><h3>Landscape</h3><p class="work-summary">Open views, changing light, and the shape of place.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-space" href="./nature-sky/space/" data-flickr-album="72177720335099599">
+                        <img src="https://live.staticflickr.com/65535/54658923942_bb5ebafea3_b.jpg" alt="Night sky and space observation" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">10</span><p class="work-kicker">Night sky</p><h3>Space</h3><p class="work-summary">Photographs looking beyond the horizon and into the night sky.</p></div>
+                    </a>
+                </div>
 
-            <section class="content-grid">
-                <article class="content-card">
-                    <h2>Photography Accounts</h2>
-                    <ul>
-                        <li><a href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">Flickr photostream</a></li>
-                        <li><a href="https://www.flickr.com/people/sevcan-alkan/" target="_blank" rel="noopener noreferrer">Flickr profile</a></li>
-                    </ul>
-                </article>
-
-                <article class="content-card">
-                    <h2>Current Public Setup</h2>
-                    <ul>
-                        <li>Nikon Z8</li>
-                        <li>Nikkor Z 180-600</li>
-                        <li>Fujifilm X-T5</li>
-                        <li>Fujinon XF 50-140</li>
-                        <li>Based in Sofia, Bulgaria (LBSF / SOF)</li>
-                    </ul>
-                </article>
+                <div class="work-group">
+                    <header class="work-group-header"><p>05 / Topics</p><h2>Visual Studies</h2></header>
+                    <a class="work-panel" id="topic-architecture" href="./visual-studies/architecture/" data-flickr-album="72177720332351924">
+                        <img src="https://live.staticflickr.com/65535/55126233497_ca88b9a7fb_b.jpg" alt="Architectural structure and geometry" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">11</span><p class="work-kicker">Built space</p><h3>Architecture</h3><p class="work-summary">Structures, surfaces, and the geometry of built space.</p></div>
+                    </a>
+                    <a class="work-panel" id="topic-analog" href="./visual-studies/analog-photography/" data-flickr-album="72177720335074357">
+                        <img src="https://live.staticflickr.com/65535/55156715645_b2ceea6297_b.jpg" alt="Analog photograph made on film" width="1024" height="683" loading="lazy" />
+                        <div class="work-panel-copy"><span class="work-panel-number">12</span><p class="work-kicker">Film</p><h3>Analog Photography</h3><p class="work-summary">Film photography and the slower rhythm of making images.</p></div>
+                    </a>
+                </div>
             </section>
         </main>
 
-        <footer class="site-footer">
-            © 2026 Sevcan ALKAN
+        <footer class="portfolio-footer">
+            <span>© 2026 Sevcan Alkan. All rights reserved.</span>
+            <nav class="footer-links" aria-label="Social profiles">
+                <a href="https://www.instagram.com/sevcan.alkan/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.tiktok.com/@alkan.sevcan" target="_blank" rel="noopener noreferrer">TikTok</a>
+                <a href="https://unsplash.com/@sevcanalkan" target="_blank" rel="noopener noreferrer">Unsplash</a>
+                <a href="https://www.flickr.com/photos/sevcan-alkan/" target="_blank" rel="noopener noreferrer">Flickr</a>
+                <a href="https://circuit-insider.com/en/creators/sevcan-alkan" target="_blank" rel="noopener noreferrer">Circuit Insider</a>
+                <a href="https://www.facebook.com/SevcanALKANN" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://x.com/Sevcan_ALKAN" target="_blank" rel="noopener noreferrer">X</a>
+            </nav>
         </footer>
-        <script>
-            (function () {
-                const backgroundUrl = "https://live.staticflickr.com/65535/55105999532_603899df8d_4k.jpg?s=eyJpIjo1NTEwNTk5OTUzMiwiZSI6MTc3NDg5MDU3MiwicyI6IjhmMmYyYTAxZjJlMWY4ZjI2MjA1ZmRhOTA2YThjNGViOTNlZmZhMjMiLCJ2IjoxfQ";
-                const shouldLoadLargeBackground =
-                    window.innerWidth >= 1100 &&
-                    window.devicePixelRatio >= 1 &&
-                    !(window.matchMedia && window.matchMedia("(prefers-reduced-data: reduce)").matches);
-
-                if (!shouldLoadLargeBackground) {
-                    return;
-                }
-
-                const image = new Image();
-                image.decoding = "async";
-                image.loading = "eager";
-                image.onload = function () {
-                    document.body.style.setProperty("--photography-bg-image", 'url("' + backgroundUrl + '")');
-                    document.body.classList.add("photography-bg-ready");
-                };
-                image.src = backgroundUrl;
-            })();
-        </script>
+        <script src="./portfolio.js"></script>
     </body>
 </html>
